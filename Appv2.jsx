@@ -464,29 +464,29 @@ class PersonIdentified extends React.Component {
                         {/* <!-- /.panel-heading --> */}
                         <div className="panel-body">
                             <div style={{ float: 'left' }}>
-                                <img src="public/images/download.jpg" alt="ima1" style={{ width: '200px', height: '200px' }} />
-                                {/* <img src={"data:image/jpeg;base64," + this.props.base64str} alt="" style={{ width: '200px', height: '200px' }} /> */}
+                                <img src="public/images/download.jpg" alt="ima1" style={{ width: '150px', height: '150px' }} />
+                                {/* <img src={"data:image/jpeg;base64," + this.props.base64str} alt="" style={{ width: '150px', height: '150px' }} /> */}
                             </div>
                             <div style={{ float: 'right' }}>
-                                <img src="public/images/download.jpg" alt="ima1" style={{ width: '200px', height: '200px' }} />
-                                {/* <img src={"data:image/jpeg;base64," + this.props.base64str} alt="" style={{ width: '200px', height: '200px' }} /> */}
+                                <img src="public/images/download.jpg" alt="ima1" style={{ width: '150px', height: '150px' }} />
+                                {/* <img src={"data:image/jpeg;base64," + this.props.base64str} alt="" style={{ width: '150px', height: '150px' }} /> */}
                             </div>
-                            <form className="form-horizontal col-lg-7" action="#" readOnly={this.state.readOnly} >
+                            <form className="form-horizontal col-sm-5" action="#" readOnly={this.state.readOnly} >
                                 <div className="form-group">
-                                    <label className="control-label col-sm-2" htmlFor="email">Email:</label>
-                                    <div className="col-sm-6">
+                                    <label style={{paddingRight: '400px'}} className="control-label col-sm-2" htmlFor="email">Email:</label>
+                                    <div className="col-sm-10 col-sm-push-1">
                                         <input id="email" type="email" className="form-control" readOnly={this.state.readOnly} value={this.props.email} />
                                     </div>
                                 </div>
                                 <div className="form-group">
                                     <label className="control-label col-sm-2" htmlFor="user-class">Class:</label>
-                                    <div className="col-sm-6">
+                                    <div className="col-sm-10 col-sm-push-1">
                                         <input id="user-class" type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.class} />
                                     </div>
                                 </div>
                                 <div className="form-group">
                                     <label className="control-label col-sm-2" htmlFor="address">Address:</label>
-                                    <div className="col-sm-6">
+                                    <div className="col-sm-10 col-sm-push-1">
                                         <input id="address" type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.address} />
                                     </div>
                                 </div>
@@ -504,9 +504,7 @@ class PersonIdentified extends React.Component {
             )
         } else {
             return (
-
-                <div style={{ marginTop: '10px' }}>
-                    <div className="panel panel-default">
+                <div className="panel panel-default" style={{marginTop: '10px'}} >
                         <div className="panel-heading">
                             <i className="fa fa-bar-chart-o fa-fw"></i> {this.props.fullname}
                             <div className="pull-right">
@@ -527,29 +525,29 @@ class PersonIdentified extends React.Component {
                         {/* <!-- /.panel-heading --> */}
                         <div className="panel-body">
                             <div style={{ float: 'left' }}>
-                                <img src="public/images/download.jpg" alt="ima1" style={{ width: '200px', height: '200px' }} />
-                                {/* <img src={"data:image/jpeg;base64," + this.props.base64str} alt="" style={{ width: '200px', height: '200px' }} /> */}
+                                <img src="public/images/download.jpg" alt="ima1" style={{ width: '150px', height: '150px' }} />
+                                {/* <img src={"data:image/jpeg;base64," + this.props.base64str} alt="" style={{ width: '150px', height: '150px' }} /> */}
                             </div>
                             <div style={{ float: 'right' }}>
-                                <img src="public/images/download.jpg" alt="ima2" style={{ width: '200px', height: '200px' }} />
-                                {/* <img src={"data:image/jpg;base64," + this.props.base64str} alt={this.props.imageName} style={{ width: '200px', height: '200px' }} /> */}
+                                <img src="public/images/download.jpg" alt="ima2" style={{ width: '150px', height: '150px' }} />
+                                {/* <img src={"data:image/jpg;base64," + this.props.base64str} alt={this.props.imageName} style={{ width: '150px', height: '150px' }} /> */}
                             </div>
-                            <form className="form-horizontal col-lg-7" action="#" readOnly={this.state.readOnly} >
+                            <form style={{display: 'block'}} className="form-horizontal col-sm-5" action="#" readOnly={this.state.readOnly} >
                                 <div className="form-group">
                                     <label className="control-label col-sm-2" htmlFor="email">Email:</label>
-                                    <div className="col-sm-6">
+                                    <div className="col-sm-10 col-sm-push-1">
                                         <input id="email" type="email" className="form-control" readOnly={this.state.readOnly} value={this.props.email} />
                                     </div>
                                 </div>
                                 <div className="form-group">
                                     <label className="control-label col-sm-2" htmlFor="user-class">Class:</label>
-                                    <div className="col-sm-6">
+                                    <div className="col-sm-10 col-sm-push-1">
                                         <input id="user-class" type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.class} />
                                     </div>
                                 </div>
                                 <div className="form-group">
                                     <label className="control-label col-sm-2" htmlFor="address">Address:</label>
-                                    <div className="col-sm-6">
+                                    <div className="col-sm-10 col-sm-push-1">
                                         <input id="address" type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.address} />
                                     </div>
                                 </div>
@@ -558,7 +556,6 @@ class PersonIdentified extends React.Component {
                         </div>
                         {/* <!-- /.panel-body --> */}
                     </div>
-                </div >
 
             )
         }
