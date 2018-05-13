@@ -473,20 +473,20 @@ class PersonIdentified extends React.Component {
                             </div>
                             <form className="form-horizontal col-sm-5" action="#" readOnly={this.state.readOnly} >
                                 <div className="form-group">
-                                    <label style={{paddingRight: '400px'}} className="control-label col-sm-2" htmlFor="email">Email:</label>
-                                    <div className="col-sm-10 col-sm-push-1">
+                                    <label className="control-label col-sm-2 col-sm-push-3" htmlFor="email">Email:</label>
+                                    <div className="col-sm-10 col-sm-push-4">
                                         <input id="email" type="email" className="form-control" readOnly={this.state.readOnly} value={this.props.email} />
                                     </div>
                                 </div>
                                 <div className="form-group">
-                                    <label className="control-label col-sm-2" htmlFor="user-class">Class:</label>
-                                    <div className="col-sm-10 col-sm-push-1">
+                                    <label className="control-label col-sm-2 col-sm-push-3" htmlFor="user-class">Class:</label>
+                                    <div className="col-sm-10 col-sm-push-4">
                                         <input id="user-class" type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.class} />
                                     </div>
                                 </div>
                                 <div className="form-group">
-                                    <label className="control-label col-sm-2" htmlFor="address">Address:</label>
-                                    <div className="col-sm-10 col-sm-push-1">
+                                    <label className="control-label col-sm-2 col-sm-push-3" htmlFor="address">Address:</label>
+                                    <div className="col-sm-10 col-sm-push-4">
                                         <input id="address" type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.address} />
                                     </div>
                                 </div>
@@ -534,20 +534,20 @@ class PersonIdentified extends React.Component {
                             </div>
                             <form style={{display: 'block'}} className="form-horizontal col-sm-5" action="#" readOnly={this.state.readOnly} >
                                 <div className="form-group">
-                                    <label className="control-label col-sm-2" htmlFor="email">Email:</label>
-                                    <div className="col-sm-10 col-sm-push-1">
+                                    <label className="control-label col-sm-2 col-sm-push-3" htmlFor="email">Email:</label>
+                                    <div className="col-sm-10 col-sm-push-4">
                                         <input id="email" type="email" className="form-control" readOnly={this.state.readOnly} value={this.props.email} />
                                     </div>
                                 </div>
                                 <div className="form-group">
-                                    <label className="control-label col-sm-2" htmlFor="user-class">Class:</label>
-                                    <div className="col-sm-10 col-sm-push-1">
+                                    <label className="control-label col-sm-2 col-sm-push-3" htmlFor="user-class">Class:</label>
+                                    <div className="col-sm-10 col-sm-push-4">
                                         <input id="user-class" type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.class} />
                                     </div>
                                 </div>
                                 <div className="form-group">
-                                    <label className="control-label col-sm-2" htmlFor="address">Address:</label>
-                                    <div className="col-sm-10 col-sm-push-1">
+                                    <label className="control-label col-sm-2 col-sm-push-3" htmlFor="address">Address:</label>
+                                    <div className="col-sm-10 col-sm-push-4">
                                         <input id="address" type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.address} />
                                     </div>
                                 </div>
