@@ -492,7 +492,7 @@ class PersonIdentified extends React.Component {
                                 </div>
                                 <div className="form-group" style={{ marginTop: '30px' }} id='update'>
                                     <div>
-                                        <button type="submit" className="btn btn-default col-xs-offset-4" ref={this.submit} onClick={this.Submit}>Update</button>
+                                        <button type="submit" className="btn btn-default col-sm-offset-12" ref={this.submit} onClick={this.Submit}>Update</button>
                                     </div>
                                 </div>
                             </form>
