@@ -3,32 +3,32 @@ import $ from 'jquery';
 import ReactDOM from 'react-dom';
 
 var contain;
-class Appv2 extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
         contain = this
         this.state = {
-            entity: [
-                {
-                    imageName: '',
-                    base64str: '',
-                    fullname: '',
-                    email: '',
-                    class: '',
-                    address: ''
-                },
+            entity:[
+                    {
+                        imageName: '',
+                        base64str: '',
+                        fullname: '',
+                        email: '',
+                        class: '',
+                        address: ''
+                    },
             ]
         }
-        // $.get("http://localhost:3333/images/1", function (data) {
-        //     contain.state.entity[0].imageName = data.img.imageName;
-        //     contain.state.entity[0].base64str = data.img.base64str;
-        //     contain.state.entity[0].fullname = data.user.fullname;
-        //     contain.state.entity[0].class = data.user.class;
-        //     contain.state.entity[0].address = data.user.address;
-        //     contain.state.entity[0].email = data.user.email;
-
-        //     contain.setState(contain.state);
-        // })
+        $.get("http://localhost:3333/images/1", function (data) {
+            contain.state.entity[0].imageName = data.img.imageName;
+            contain.state.entity[0].base64str = data.img.base64str;
+            contain.state.entity[0].fullname = data.user.fullname;
+            contain.state.entity[0].class = data.user.class;
+            contain.state.entity[0].address = data.user.address;
+            contain.state.entity[0].email = data.user.email;
+            
+            contain.setState(contain.state);
+        })
     }
     render() {
         return (
@@ -38,26 +38,19 @@ class Appv2 extends React.Component {
                     <NavBarTopRight />
                     <NavBarStaticSide />
                 </nav>
-                <div id="page-wrapper"  >
-                    <div className="row">
-                        <div className="col-lg-9">
-                            <PersonIdentified />
-                        </div>
-                        <div className="col-lg-3">
-                            <PersonNotIdentified />
-                        </div>
-                    </div>
-                    {/* <PersonIdentified imageName={contain.state.entity[0].imageName}
+                <div className="col-lg-8" id="page-wrapper" >
+                    <PersonIdentified imageName={contain.state.entity[0].imageName}
                         base64str={contain.state.entity[0].base64str}
                         fullname={contain.state.entity[0].fullname}
                         class={contain.state.entity[0].class}
                         email={contain.state.entity[0].email}
                         address={contain.state.entity[0].address}
-                    /> */}
-
+                    />
 
                 </div>
-
+                <div>
+                    <PersonNotIdentified />
+                </div>
             </div>
         )
     }
@@ -441,9 +434,8 @@ class PersonIdentified extends React.Component {
     render() {
         if (this.state.isEditable) {
             return (
-
                 <div style={{ marginTop: '10px' }}>
-                    <div className="panel panel-default ">
+                    <div className="panel panel-default">
                         <div className="panel-heading">
                             <i className="fa fa-bar-chart-o fa-fw"></i> {this.props.fullname}
                             <div className="pull-right">
@@ -464,47 +456,49 @@ class PersonIdentified extends React.Component {
                         {/* <!-- /.panel-heading --> */}
                         <div className="panel-body">
                             <div style={{ float: 'left' }}>
-                                <img src="public/images/download.jpg" alt="ima1" style={{ width: '150px', height: '150px' }} />
-                                {/* <img src={"data:image/jpeg;base64," + this.props.base64str} alt="" style={{ width: '150px', height: '150px' }} /> */}
+                                <img src={"data:image/jpeg;base64," + this.props.base64str} alt="" style={{ width: '200px', height: '200px' }} />
                             </div>
                             <div style={{ float: 'right' }}>
-                                <img src="public/images/download.jpg" alt="ima1" style={{ width: '150px', height: '150px' }} />
-                                {/* <img src={"data:image/jpeg;base64," + this.props.base64str} alt="" style={{ width: '150px', height: '150px' }} /> */}
+                                <img src={"data:image/jpeg;base64," + this.props.base64str} alt="" style={{ width: '200px', height: '200px' }} />
                             </div>
-                            <form className="form-horizontal col-sm-5" action="#" readOnly={this.state.readOnly} >
-                                <div className="form-group">
-                                    <label className="control-label col-sm-2 col-sm-push-3" htmlFor="email">Email:</label>
-                                    <div className="col-sm-10 col-sm-push-4">
-                                        <input id="email" type="email" className="form-control" readOnly={this.state.readOnly} value={this.props.email} />
+
+                            <div style={{ float: 'left', margin: '0 17%' }}>
+                                <form className="form-horizontal" action="#" readOnly={this.state.readOnly}>
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-2" >Email:</label>
+                                        <div className="col-sm-10">
+                                            <input type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.email} />
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="form-group">
-                                    <label className="control-label col-sm-2 col-sm-push-3" htmlFor="user-class">Class:</label>
-                                    <div className="col-sm-10 col-sm-push-4">
-                                        <input id="user-class" type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.class} />
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-2" >Class:</label>
+                                        <div className="col-sm-10">
+                                            <input type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.class} />
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="form-group">
-                                    <label className="control-label col-sm-2 col-sm-push-3" htmlFor="address">Address:</label>
-                                    <div className="col-sm-10 col-sm-push-4">
-                                        <input id="address" type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.address} />
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-2" >Address:</label>
+                                        <div className="col-sm-10">
+                                            <input type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.address} />
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="form-group" style={{ marginTop: '30px' }} id='update'>
-                                    <div>
-                                        <button type="submit" className="btn btn-default col-sm-offset-12" ref={this.submit} onClick={this.Submit}>Update</button>
+                                    <div className="form-group" style={{ marginTop: '40px' }} id='update'>
+                                        <div className="col-sm-offset-2 col-sm-10">
+                                            <button type="submit" className="btn btn-default" ref={this.submit} onClick={this.Submit}>Update</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
+
                         </div>
                         {/* <!-- /.panel-body --> */}
                     </div>
                 </div>
-
             )
         } else {
             return (
-                <div className="panel panel-default" style={{marginTop: '10px'}} >
+                <div style={{ marginTop: '10px' }}>
+                    <div className="panel panel-default">
                         <div className="panel-heading">
                             <i className="fa fa-bar-chart-o fa-fw"></i> {this.props.fullname}
                             <div className="pull-right">
@@ -525,38 +519,39 @@ class PersonIdentified extends React.Component {
                         {/* <!-- /.panel-heading --> */}
                         <div className="panel-body">
                             <div style={{ float: 'left' }}>
-                                <img src="public/images/download.jpg" alt="ima1" style={{ width: '150px', height: '150px' }} />
-                                {/* <img src={"data:image/jpeg;base64," + this.props.base64str} alt="" style={{ width: '150px', height: '150px' }} /> */}
+                                <img src={"data:image/jpg;base64," + this.props.base64str} alt={this.props.imageName} style={{ width: '200px', height: '200px' }} />
                             </div>
                             <div style={{ float: 'right' }}>
-                                <img src="public/images/download.jpg" alt="ima2" style={{ width: '150px', height: '150px' }} />
-                                {/* <img src={"data:image/jpg;base64," + this.props.base64str} alt={this.props.imageName} style={{ width: '150px', height: '150px' }} /> */}
+                                <img src={"data:image/jpg;base64," + this.props.base64str} alt={this.props.imageName} style={{ width: '200px', height: '200px' }} />
                             </div>
-                            <form style={{display: 'block'}} className="form-horizontal col-sm-5" action="#" readOnly={this.state.readOnly} >
-                                <div className="form-group">
-                                    <label className="control-label col-sm-2 col-sm-push-3" htmlFor="email">Email:</label>
-                                    <div className="col-sm-10 col-sm-push-4">
-                                        <input id="email" type="email" className="form-control" readOnly={this.state.readOnly} value={this.props.email} />
+
+                            <div style={{ float: 'left', margin: '0 17%' }}>
+                                <form className="form-horizontal" action="#" readOnly={this.state.readOnly}>
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-2" >Email:</label>
+                                        <div className="col-sm-10">
+                                            <input type="email" className="form-control" readOnly={this.state.readOnly} value={this.props.email} />
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="form-group">
-                                    <label className="control-label col-sm-2 col-sm-push-3" htmlFor="user-class">Class:</label>
-                                    <div className="col-sm-10 col-sm-push-4">
-                                        <input id="user-class" type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.class} />
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-2" >Class:</label>
+                                        <div className="col-sm-10">
+                                            <input type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.class} />
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="form-group">
-                                    <label className="control-label col-sm-2 col-sm-push-3" htmlFor="address">Address:</label>
-                                    <div className="col-sm-10 col-sm-push-4">
-                                        <input id="address" type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.address} />
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-2" >Address:</label>
+                                        <div className="col-sm-10">
+                                            <input type="text" className="form-control" readOnly={this.state.readOnly} value={this.props.address} />
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
 
                         </div>
                         {/* <!-- /.panel-body --> */}
                     </div>
-
+                </div>
             )
         }
 
@@ -581,5 +576,5 @@ class PersonNotIdentified extends React.Component {
         )
     }
 }
-export default Appv2;
+export default App;
 
