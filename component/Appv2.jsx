@@ -8,6 +8,7 @@ import PersonIdentified from './PersonIdentified.jsx';
 import PersonNotIdentified from './PersonNotIdentified.jsx';
 
 var contain;
+var timer;
 class Appv2 extends React.Component {
     constructor(props) {
         super(props);
@@ -15,20 +16,62 @@ class Appv2 extends React.Component {
         this.state = {
             entity: []
         };
-        function listAll() {
-            var temp = [];
-            contain.state.entity.forEach(function (item) {
-                temp.push(item.user.userid);
-            });
-            console.log(temp);
-            return temp.join(',');
-        };
-        // setInterval(function () {
-        // }, 0);
+        this.toggleButton = this.toggleButton.bind(this)
 
+
+        // function autoReLoad() {
+        //     try {
+        //         $.get("http://localhost:3333/listAll/" + this.listAll(), function (data, status) {
+
+        //             data = data.slice(0, -1);
+        //             data = '[' + data + ']';
+        //             var obj = JSON.parse(data);
+        //             obj.map((e, i) => {
+        //                 // console.log(e)
+        //                 contain.setState(previousState => ({
+        //                     entity: [...previousState.entity, e]
+        //                 }));
+        //             })
+        //         });
+        //     } catch (err) {
+        //         console.log(err)
+        //     }
+        // }
+    };
+    deleteUser(id) {
+        var index = contain.state.entity.findIndex(function(obj){
+            return obj.image.imageName[0] === id;
+        }); // Let's say it's Bob.
+        console.log('ID delete: '+id);
+        this.setState({
+            enity: contain.state.entity.splice(index,1)
+        })
+    };
+    updateUser(user,userid){
+        var index = contain.state.entity.findIndex(function(obj){
+            return obj.image.imageName[0] === userid;
+        });
+        this.state.entity[index].user.fullname = user.fullname;
+        this.state.entity[index].user.address = user.address;
+        this.state.entity[index].user.email = user.email;
+        this.state.entity[index].user.class = user.class;
+        this.setState(this.state);
+    }
+    listAll() {
+        var temp = [];
+        contain.state.entity.forEach(function (item) {
+            temp.push(item.image.imageName[0]);
+            // console.log(item.image.imageName[0])
+        });
+        console.log('ARRAY' + temp);
+        return temp.join(',');
+    };
+    autoReLoad() {
         try {
-            $.get("http://localhost:3333/listAll/" + listAll(), function (data, status) {
+            var temp = this.listAll();
 
+            $.get("http://localhost:3000/listAll/" + temp, function (data, status) {
+                console.log(this.listAll);
                 data = data.slice(0, -1);
                 data = '[' + data + ']';
                 var obj = JSON.parse(data);
@@ -43,22 +86,40 @@ class Appv2 extends React.Component {
             console.log(err)
         }
     }
+
+    toggleButton() {
+        if ($('#btn-toggle').hasClass('glyphicon-play')) {
+            $('#btn-toggle').removeClass('glyphicon-play');
+            $('#btn-toggle').addClass('glyphicon-stop');
+            clearInterval(timer);
+            timer = setInterval(this.autoReLoad.bind(this), 3000);
+
+        } else {
+            $('#btn-toggle').removeClass('glyphicon-stop');
+            $('#btn-toggle').addClass('glyphicon-play');
+            clearInterval(timer);
+        }
+    };
     render() {
         return (
             <div>
+
                 <nav className="navbar navbar-default navbar-static-top" role="navigation" style={{ marginBottom: '0' }}>
                     <NavBarHeader />
                     <NavBarTopRight />
                     <NavBarStaticSide />
                 </nav>
-                <div id="page-wrapper"  >
+                <div id="page-wrapper">
                     <div className="row">
                         <div className="col-lg-6">
+                            <button onClick={this.toggleButton}>
+                                <span id="btn-toggle" className="glyphicon glyphicon-play" ></span>
+                            </button>
                             {/* {console.log(contain.state)} */}
-                            {/* <PersonIdentified imageName={contain.state.entity[1]}/> */}
+                            {/* <PersonIdentified/> */}
                             {
                                 contain.state.entity.map((e, i) => {
-                                    return <PersonIdentified key={i} info={e}/>
+                                    return <PersonIdentified key={i} index={i} info={e} updateUser={this.updateUser.bind(this)} deleteUser={this.deleteUser.bind(this)}/>
 
                                 })
                             }
@@ -68,15 +129,6 @@ class Appv2 extends React.Component {
                             <PersonNotIdentified />
                         </div>
                     </div>
-                    {/* <PersonIdentified imageName={contain.state.entity[0].imageName}
-                        base64str={contain.state.entity[0].base64str}
-                        fullname={contain.state.entity[0].fullname}
-                        class={contain.state.entity[0].class}
-                        email={contain.state.entity[0].email}
-                        address={contain.state.entity[0].address}
-                    /> */}
-
-
                 </div>
 
             </div>
