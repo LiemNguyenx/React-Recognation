@@ -2,11 +2,11 @@ import React from 'react';
 import $ from 'jquery';
 import ReactDOM from 'react-dom';
 
-
+var _self;
 class PersonIdentified extends React.Component {
     constructor(props) {
         super(props);
-
+        _self = this;
         this.state = {
             readOnly: true,
             isEditable: false

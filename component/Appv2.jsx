@@ -6,6 +6,7 @@ import NavBarStaticSide from './NavBarStaticSide.jsx';
 import NavBarTopRight from './NavBarTopRight.jsx';
 import PersonIdentified from './PersonIdentified.jsx';
 import PersonNotIdentified from './PersonNotIdentified.jsx';
+import StatusBar from './StatusBar.jsx';
 
 var contain;
 var timer;
@@ -14,37 +15,20 @@ class Appv2 extends React.Component {
         super(props);
         contain = this
         this.state = {
-            entity: []
+            entity: [],
+            status: ''
         };
         this.toggleButton = this.toggleButton.bind(this)
-
-
-        // function autoReLoad() {
-        //     try {
-        //         $.get("http://localhost:3333/listAll/" + this.listAll(), function (data, status) {
-
-        //             data = data.slice(0, -1);
-        //             data = '[' + data + ']';
-        //             var obj = JSON.parse(data);
-        //             obj.map((e, i) => {
-        //                 // console.log(e)
-        //                 contain.setState(previousState => ({
-        //                     entity: [...previousState.entity, e]
-        //                 }));
-        //             })
-        //         });
-        //     } catch (err) {
-        //         console.log(err)
-        //     }
-        // }
     };
+ 
     deleteUser(id) {
         var index = contain.state.entity.findIndex(function(obj){
             return obj.image.imageName[0] === id;
         }); // Let's say it's Bob.
         console.log('ID delete: '+id);
         this.setState({
-            enity: contain.state.entity.splice(index,1)
+            enity: contain.state.entity.splice(index,1),
+            status: 'Delete user successful with ID: '+ id
         })
     };
     updateUser(user,userid){
@@ -55,6 +39,7 @@ class Appv2 extends React.Component {
         this.state.entity[index].user.address = user.address;
         this.state.entity[index].user.email = user.email;
         this.state.entity[index].user.class = user.class;
+        this.state.status = 'Update user successful with ID: '+ userid;
         this.setState(this.state);
     }
     listAll() {
@@ -111,23 +96,27 @@ class Appv2 extends React.Component {
                 </nav>
                 <div id="page-wrapper">
                     <div className="row">
-                        <div className="col-lg-6">
-                            <button onClick={this.toggleButton}>
+                        <div className="col-lg-9">
+                            
+                            <StatusBar status={this.state.status} btnStartEnd={this.toggleButton.bind(this)} />
+                            
+                            {/* <button onClick={this.toggleButton}>
                                 <span id="btn-toggle" className="glyphicon glyphicon-play" ></span>
-                            </button>
+                            </button> */}
+                            
                             {/* {console.log(contain.state)} */}
                             {/* <PersonIdentified/> */}
                             {
                                 contain.state.entity.map((e, i) => {
-                                    return <PersonIdentified key={i} index={i} info={e} updateUser={this.updateUser.bind(this)} deleteUser={this.deleteUser.bind(this)}/>
+                                    return <PersonIdentified key={i} index={i} info={e}  updateUser={this.updateUser.bind(this)} deleteUser={this.deleteUser.bind(this)}/>
 
                                 })
                             }
 
                         </div>
-                        <div className="col-lg-3">
+                        {/* <div className="col-lg-3">
                             <PersonNotIdentified />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
