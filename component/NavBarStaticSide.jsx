@@ -1,8 +1,21 @@
 import React from 'react';
 import $ from 'jquery';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route } from 'react-router';
+import Statistical from './Statistical.jsx';
 
 class NavBarStaticSide extends React.Component {
+    constructor(props){
+        super(props);
+    }
+    showStatistical(){
+        var showStatistical = this.props.showStatistical;
+        showStatistical();
+    }
+    showOffStatistical(){
+        var showOff = this.props.showOffStatistical;
+        showOff();
+    }
     render() {
         return (
             <div className="navbar-default sidebar" role="navigation">
@@ -17,32 +30,24 @@ class NavBarStaticSide extends React.Component {
                                     </button>
                                 </span>
                             </div>
-                            {/* <!-- /input-group --> */}
                         </li>
                         <li>
-                            <a href="index.html"><i className="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="#" onClick={this.showOffStatistical.bind(this)} ><i className="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="#"><i className="fa fa-bar-chart-o fa-fw"></i> Charts<span className="fa arrow"></span></a>
+                            <a href="#"><i className="fa fa-bar-chart-o fa-fw"></i> Statistical<span className="fa arrow"></span></a>
                             <ul className="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">Flot Charts</a>
+                                    <a href="#" onClick={this.showStatistical.bind(this)} >Statistical by User</a>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <a href="morris.html">Morris.js Charts</a>
-                                </li>
+                                </li> */}
                             </ul>
-                            {/* <!-- /.nav-second-level --> */}
                         </li>
-                        {/* <li>
-                            <a href="tables.html"><i className="fa fa-table fa-fw"></i> Tables</a>
-                        </li> */}
-                        {/* <li>
-                            <a href="forms.html"><i className="fa fa-edit fa-fw"></i> Forms</a>
-                        </li> */}
                     </ul>
                 </div>
-                {/* <!-- /.sidebar-collapse --> */}
+
             </div>
         )
     }

@@ -36,13 +36,10 @@ class PersonIdentified extends React.Component {
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify(user),
-            success: function (data) {
-                updateUser(user,UserID);
-            }
-        });
-        
-        // console.log('update: ' + user.fullname);
-        
+            // success: function (data) {
+            //     updateUser(user,UserID);
+            // }
+        });    
         updateUser(user,UserID);
     }
     Delete() {
@@ -51,9 +48,6 @@ class PersonIdentified extends React.Component {
         $.ajax({
             url: 'http://localhost:3000/users/'+UserID,
             type: 'DELETE',
-            success: function (data) {
-                // console.log(data);
-            }
         });
         console.log('end delete');
         var deleteState = this.props.deleteUser;
