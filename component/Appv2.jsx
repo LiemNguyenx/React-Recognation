@@ -58,7 +58,8 @@ class Appv2 extends React.Component {
             var temp = this.listAll();
 
             $.get(myAddress.ADDRESS_LOCAL + '/listAll/' + temp, function (data, status) {
-                console.log(this.listAll);
+                console.log('data recive:' +data);
+                console.log('list exist'+this.listAll);
                 data = data.slice(0, -1);
                 data = '[' + data + ']';
                 var obj = JSON.parse(data);
@@ -70,8 +71,7 @@ class Appv2 extends React.Component {
                 // })
                 contain.state.enity = [] ;
                 contain.state.enity = data;
-                console.log(contain.state.enity);
-                console.log(data);
+                
                 contain.setState(contain.state  );
             });
         } catch (err) {
