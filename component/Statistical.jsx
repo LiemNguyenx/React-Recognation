@@ -2,7 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import ReactDOM from 'react-dom';
 import * as myAddress from '../config_port_address.js';
-
+var moment = require('moment-timezone');
 var _self;
 class Statistical extends React.Component {
     constructor(props) {
@@ -58,14 +58,14 @@ class Statistical extends React.Component {
             address: _self.refs.address.value
         }
         $.ajax({
-            url: myAddress.ADDRESS_LOCAL+'/users/'+UserID,
+            url: myAddress.ADDRESS_LOCAL + '/users/' + UserID,
             type: 'PUT',
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify(user),
         });
         var index = _self.state.users.findIndex(x => x.userid === UserID)
-        this.state.users[index]=user;
+        this.state.users[index] = user;
         this.state.is_Editable = false;
         this.setState(this.state);
     }
@@ -85,12 +85,16 @@ class Statistical extends React.Component {
             _self.setState(_self.state);
         })
     };
+    toTimeZone(time) {
+        var format = 'YYYY/MM/DD HH:mm:ss';
+        return moment(time, format).tz('Asia/Saigon').format(format);
+    }
     render() {
         return (
             <div>
                 <div className="col-lg-4" style={{ marginTop: '10px' }} >
                     <div className="row">
-                        <input ref="id" type="hidden"  onChange={e => this.updateEditUser(e.target.value)} value={this.state.edit_User.userid} id="id" ref="id" className="form-control" readOnly={!this.state.is_Editable}/>
+                        <input ref="id" type="hidden" onChange={e => this.updateEditUser(e.target.value)} value={this.state.edit_User.userid} id="id" ref="id" className="form-control" readOnly={!this.state.is_Editable} />
                     </div>
                     <div className="row">
                         <input ref="fullname" onChange={e => this.updateEditUser(e.target.value)} value={this.state.edit_User.fullname} id="fullname" ref="fullname" type="text" className="form-control" readOnly={!this.state.is_Editable} placeholder={"Name"} />
@@ -125,12 +129,14 @@ class Statistical extends React.Component {
                                 <tbody>
                                     {
                                         _self.state.dates.map((e, i) => {
+                                            e = this.toTimeZone(new Date(e));
                                             return (
                                                 <tr key={i} className="odd gradeX">
-                                                    <td>{e.substring(0, 4)}</td>
+                                                    
+                                                    <td>{e.substring(0,4)}</td>
                                                     <td>{e.substring(5, 7)}</td>
                                                     <td>{e.substring(8, 10)}</td>
-                                                    <td>{e.substring(12, 19)}</td>
+                                                    <td>{e.substring(11, 19)}</td>
                                                 </tr>
                                             )
                                         })

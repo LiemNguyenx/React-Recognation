@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route } from 'react-router';
+
 import Statistical from './Statistical.jsx';
 
 class NavBarStaticSide extends React.Component {
