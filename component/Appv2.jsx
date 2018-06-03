@@ -68,8 +68,11 @@ class Appv2 extends React.Component {
                 //         entity: [...previousState.entity, e]
                 //     }));
                 // })
+                contain.state.enity = [] ;
                 contain.state.enity = data;
-                contain.setState(contain.state.enity);
+                console.log(contain.state.enity);
+                console.log(data);
+                contain.setState(contain.state  );
             });
         } catch (err) {
             console.log(err)
