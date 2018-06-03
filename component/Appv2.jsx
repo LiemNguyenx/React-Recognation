@@ -62,12 +62,14 @@ class Appv2 extends React.Component {
                 data = data.slice(0, -1);
                 data = '[' + data + ']';
                 var obj = JSON.parse(data);
-                obj.map((e, i) => {
-                    // console.log(e)
-                    contain.setState(previousState => ({
-                        entity: [...previousState.entity, e]
-                    }));
-                })
+                // obj.map((e, i) => {
+                //     // console.log(e)
+                //     contain.setState(previousState => ({
+                //         entity: [...previousState.entity, e]
+                //     }));
+                // })
+                contain.state.enity = data;
+                contain.setState(contain.state.enity);
             });
         } catch (err) {
             console.log(err)
