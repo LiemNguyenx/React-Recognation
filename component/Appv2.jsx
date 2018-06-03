@@ -106,9 +106,7 @@ class Appv2 extends React.Component {
                     </nav>
                     <div id="page-wrapper">
                         <div className="row" style={{marginTop:'10px'}} >
-
-                            <Statistical />
-
+                            <Statistical updateUser={this.updateUser.bind(this)} deleteUser={this.deleteUser.bind(this)}  />
                         </div>
                     </div>
 

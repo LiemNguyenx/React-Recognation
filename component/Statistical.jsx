@@ -32,17 +32,20 @@ class Statistical extends React.Component {
         }
         this.state.edit_User = user;
         this.setState(this.state.edit_User);
+        var updateUser = this.props.updateUser;
+        updateUser(user,user.userid);
     }
     deleteUser(id) {
         if (confirm('Are you sure ?')) {
             $.ajax({
-                url: myAddress.ADDRESS_GLOBAL + '/users/' + id,
+                url: myAddress.ADDRESS_LOCAL + '/users/' + id,
                 type: 'DELETE'
             });
             var index = this.state.users.findIndex(x => x.userid = id);
             _self.state.users.splice(index, 1);
             _self.setState(this.state);
-
+            var deleteUser = _self.props.deleteUser;
+            deleteUser(id);
         }
     }
     updateUser(UserID) {
