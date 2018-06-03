@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import ReactDOM from 'react-dom';
+import * as myAddress from '../config_port_address.js';
 
 var _self;
 class PersonIdentified extends React.Component {
@@ -31,33 +32,29 @@ class PersonIdentified extends React.Component {
         console.log(JSON.stringify(user));
         var updateUser = this.props.updateUser;
         $.ajax({
-            url: 'http://localhost:3000/users/'+UserID,
+            url: myAddress.ADDRESS_LOCAL + '/users/' + UserID,
             type: 'PUT',
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify(user),
-            success: function (data) {
-                updateUser(user,UserID);
-            }
+            // success: function (data) {
+            //     updateUser(user,UserID);
+            // }
         });
-        
-        // console.log('update: ' + user.fullname);
-        
-        updateUser(user,UserID);
+        updateUser(user, UserID);
     }
     Delete() {
-        var UserID = this.props.info.image.imageName[0];
-        console.log('starting delete');
-        $.ajax({
-            url: 'http://localhost:3000/users/'+UserID,
-            type: 'DELETE',
-            success: function (data) {
-                // console.log(data);
-            }
-        });
-        console.log('end delete');
-        var deleteState = this.props.deleteUser;
-        deleteState(UserID);
+        if (confirm('Are you sure ?')) {
+            var UserID = this.props.info.image.imageName[0];
+            console.log('starting delete');
+            $.ajax({
+                url: myAddress.ADDRESS_LOCAL + '/users/' + UserID,
+                type: 'DELETE',
+            });
+            console.log('end delete');
+            var deleteState = this.props.deleteUser;
+            deleteState(UserID);
+        }
     }
     render() {
         if (this.state.isEditable) {
@@ -99,7 +96,7 @@ class PersonIdentified extends React.Component {
                                 <div className="row">
                                     <label className="control-label col-sm-2" htmlFor="email">Email:</label>
                                     <div className="col-sm-6">
-                                        <input id="email" ref="email"  type="email" className="form-control" readOnly={this.state.readOnly} defaultValue={this.props.info.user.email} />
+                                        <input id="email" ref="email" type="email" className="form-control" readOnly={this.state.readOnly} defaultValue={this.props.info.user.email} />
                                     </div>
                                 </div>
                                 <div className="row">

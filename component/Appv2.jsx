@@ -7,39 +7,41 @@ import NavBarTopRight from './NavBarTopRight.jsx';
 import PersonIdentified from './PersonIdentified.jsx';
 import PersonNotIdentified from './PersonNotIdentified.jsx';
 import StatusBar from './StatusBar.jsx';
+import Statistical from './Statistical.jsx';
+import * as myAddress from '../config_port_address.js';
 
 var contain;
 var timer;
 class Appv2 extends React.Component {
     constructor(props) {
         super(props);
-        contain = this
+        contain = this;
         this.state = {
+            is_statistical: false,
             entity: [],
             status: ''
         };
         this.toggleButton = this.toggleButton.bind(this)
     };
- 
     deleteUser(id) {
-        var index = contain.state.entity.findIndex(function(obj){
+        var index = contain.state.entity.findIndex(function (obj) {
             return obj.image.imageName[0] === id;
-        }); // Let's say it's Bob.
-        console.log('ID delete: '+id);
+        });
+        console.log('ID delete: ' + id);
         this.setState({
-            enity: contain.state.entity.splice(index,1),
-            status: 'Delete user successful with ID: '+ id
+            enity: contain.state.entity.splice(index, 1),
+            status: 'Delete user successful with ID: ' + id
         })
     };
-    updateUser(user,userid){
-        var index = contain.state.entity.findIndex(function(obj){
+    updateUser(user, userid) {
+        var index = contain.state.entity.findIndex(function (obj) {
             return obj.image.imageName[0] === userid;
         });
         this.state.entity[index].user.fullname = user.fullname;
         this.state.entity[index].user.address = user.address;
         this.state.entity[index].user.email = user.email;
         this.state.entity[index].user.class = user.class;
-        this.state.status = 'Update user successful with ID: '+ userid;
+        this.state.status = 'Update user successful with ID: ' + userid;
         this.setState(this.state);
     }
     listAll() {
@@ -55,7 +57,7 @@ class Appv2 extends React.Component {
         try {
             var temp = this.listAll();
 
-            $.get("http://localhost:3000/listAll/" + temp, function (data, status) {
+            $.get(myAddress.ADDRESS_LOCAL + '/listAll/' + temp, function (data, status) {
                 console.log(this.listAll);
                 data = data.slice(0, -1);
                 data = '[' + data + ']';
@@ -85,38 +87,52 @@ class Appv2 extends React.Component {
             clearInterval(timer);
         }
     };
+    showStatistical() {
+        this.state.is_statistical = true;
+        this.setState(this.state);
+    }
+    showOffStatistical() {
+        this.state.is_statistical = false;
+        this.setState(this.state);
+    }
     render() {
+        if (this.state.is_statistical) {
+            return (
+                <div>
+                    <nav className="navbar navbar-default navbar-static-top" role="navigation" style={{ marginBottom: '0' }}>
+                        <NavBarHeader />
+                        <NavBarTopRight />
+                        <NavBarStaticSide showOffStatistical={this.showOffStatistical.bind(this)} showStatistical={this.showStatistical.bind(this)} />
+                    </nav>
+                    <div id="page-wrapper">
+                        <div className="row" style={{marginTop:'10px'}} >
+
+                            <Statistical />
+
+                        </div>
+                    </div>
+
+                </div>
+            );
+        }
         return (
             <div>
 
                 <nav className="navbar navbar-default navbar-static-top" role="navigation" style={{ marginBottom: '0' }}>
                     <NavBarHeader />
                     <NavBarTopRight />
-                    <NavBarStaticSide />
+                    <NavBarStaticSide showOffStatistical={this.showOffStatistical.bind(this)} showStatistical={this.showStatistical.bind(this)} />
                 </nav>
                 <div id="page-wrapper">
                     <div className="row">
                         <div className="col-lg-9">
-                            
                             <StatusBar status={this.state.status} btnStartEnd={this.toggleButton.bind(this)} />
-                            
-                            {/* <button onClick={this.toggleButton}>
-                                <span id="btn-toggle" className="glyphicon glyphicon-play" ></span>
-                            </button> */}
-                            
-                            {/* {console.log(contain.state)} */}
-                            {/* <PersonIdentified/> */}
                             {
                                 contain.state.entity.map((e, i) => {
-                                    return <PersonIdentified key={i} index={i} info={e}  updateUser={this.updateUser.bind(this)} deleteUser={this.deleteUser.bind(this)}/>
-
+                                    return <PersonIdentified key={i} index={i} info={e} updateUser={this.updateUser.bind(this)} deleteUser={this.deleteUser.bind(this)} />
                                 })
                             }
-
                         </div>
-                        {/* <div className="col-lg-3">
-                            <PersonNotIdentified />
-                        </div> */}
                     </div>
                 </div>
 
