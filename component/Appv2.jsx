@@ -32,13 +32,14 @@ class Appv2 extends React.Component {
     };
     deleteUser(id) {
         var index = contain.state.entity.findIndex(function (obj) {
-            return obj.image.imageName[0] === id;
+            return obj.image.imageName[0] == id;
         });
         console.log('ID delete: ' + id);
-        this.setState({
-            entity: contain.state.entity.splice(index, 1),
-            status: 'Delete user successful with ID: ' + id
-        })
+        contain.state.entity.splice(index, 1);
+        contain.state.status= 'Delete user successful with ID: ' + id;
+        this.setState(contain.state);
+        console.log('Delete liem: '+this.state.entity);
+        console.log("im here:");
     };
     updateUser(user, userid) {
         var index = contain.state.entity.findIndex(function (obj) {
@@ -62,45 +63,49 @@ class Appv2 extends React.Component {
     };
     listAllComming(data) {
         var temp = [];
-        for(var item in data){
+        for (var item in data) {
             temp.push(data[item].image.imageName[0]);
         }
         return temp.join(',');
     };
     autoReLoad() {
         try {
-            
+
             var exist = this.listAll();
-            console.log('exist: '+exist );
+            console.log('exist: ' + exist);
             $.get(myAddress.ADDRESS_LOCAL + '/listAll/' + exist, function (data, status) {
-                
-                data = data.slice(0, -1);
-                data = '[' + data + ']';
-                var obj = JSON.parse(data);
-                var exist1 =[]
-                exist1 = contain.listAll().split(',');
-                
-                var comming = contain.listAllComming(obj).split(',');
-                // console.log('exist1: '+exist1);
-                 console.log('comming: '+comming);
-                var common=[];
-                common = exist1.filter(value => -1 !== comming.indexOf(value));
-                // console.log('phuc common: ' + common);
-                common.forEach(function(item){
-                    var index = contain.state.entity.findIndex(x=>x.image.imageName[0]==item);
-                    // console.log("update element: "+contain.state.entity[index].image.base64str);
-                    contain.state.entity[index].image.base64str = obj.find(x=>x.image.imageName[0]==item).image.base64str;
-                    contain.setState(contain.state.entity);
-                    var removeIndex =  obj.findIndex(x=>x.image.imageName[0]==item);
-                    obj.splice(index,1);
-                });
-                // contain.setState(contain.state.entity);
-                
-                obj.map((e, i) => {
-                    contain.setState(previousState => ({
-                        entity: [...previousState.entity, e]
-                    }));
-                })
+
+                if (!data) {
+
+                } else {
+                    data = data.slice(0, -1);
+                    data = '[' + data + ']';
+                    var obj = JSON.parse(data);
+                    var exist1 = []
+                    exist1 = contain.listAll().split(',');
+
+                    var comming = contain.listAllComming(obj).split(',');
+                    // console.log('exist1: '+exist1);
+                    console.log('comming: ' + comming);
+                    var common = [];
+                    common = exist1.filter(value => -1 !== comming.indexOf(value));
+                    // console.log('phuc common: ' + common);
+                    common.forEach(function (item) {
+                        var index = contain.state.entity.findIndex(x => x.image.imageName[0] == item);
+                        // console.log("update element: "+contain.state.entity[index].image.base64str);
+                        contain.state.entity[index].image.base64str = obj.find(x => x.image.imageName[0] == item).image.base64str;
+                        contain.setState(contain.state.entity);
+                        var removeIndex = obj.findIndex(x => x.image.imageName[0] == item);
+                        obj.splice(removeIndex, 1);
+                    });
+                    // contain.setState(contain.state.entity);
+
+                    obj.map((e, i) => {
+                        contain.setState(previousState => ({
+                            entity: [...previousState.entity, e]
+                        }));
+                    })
+                }
             });
         } catch (err) {
             // console.log(err)
@@ -138,15 +143,8 @@ class Appv2 extends React.Component {
                         <NavBarStaticSide showOffStatistical={this.showOffStatistical.bind(this)} showStatistical={this.showStatistical.bind(this)} />
                     </nav>
                     <div id="page-wrapper">
-<<<<<<< HEAD
-                        <div className="row" style={{marginTop:'10px'}} >
-                            <Statistical updateUser={this.updateUser.bind(this)} deleteUser={this.deleteUser.bind(this)}  />
-=======
                         <div className="row" style={{ marginTop: '10px' }} >
-
-                            <Statistical />
-
->>>>>>> 447c6c5eb23be9bde853505ab66aae95169b6096
+                            <Statistical updateUser={this.updateUser.bind(this)} deleteUser={this.deleteUser.bind(this)} />
                         </div>
                     </div>
 
