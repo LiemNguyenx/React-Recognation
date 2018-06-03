@@ -84,7 +84,7 @@ class Statistical extends React.Component {
     };
     toTimeZone(time) {
         var format = 'YYYY/MM/DD HH:mm:ss';
-        return moment(time, format).tz('Asis/Saigon').format(format);
+        return moment(time, format).tz('Asia/Saigon').format(format);
     }
     render() {
         return (
