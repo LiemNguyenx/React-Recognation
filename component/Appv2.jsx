@@ -57,50 +57,54 @@ class Appv2 extends React.Component {
             temp.push(item.image.imageName[0]);
             // console.log(item.image.imageName[0])
         });
-        // console.log('ARRAY' + temp);
         return temp.join(',');
+        console.log("temp: " + temp);
     };
     listAllComming(data) {
         var temp = [];
-        for(var item in data){
+        for (var item in data) {
             temp.push(data[item].image.imageName[0]);
         }
         return temp.join(',');
     };
     autoReLoad() {
         try {
-            
-            var exist = this.listAll();
-            console.log('exist: '+exist );
+
+            var exist = [];
+            exist = this.listAll();
+            console.log('exist: ' + exist);
             $.get(myAddress.ADDRESS_LOCAL + '/listAll/' + exist, function (data, status) {
-                
-                data = data.slice(0, -1);
-                data = '[' + data + ']';
-                var obj = JSON.parse(data);
-                var exist1 =[]
-                exist1 = contain.listAll().split(',');
-                
-                var comming = contain.listAllComming(obj).split(',');
-                // console.log('exist1: '+exist1);
-                 console.log('comming: '+comming);
-                var common=[];
-                common = exist1.filter(value => -1 !== comming.indexOf(value));
-                // console.log('phuc common: ' + common);
-                common.forEach(function(item){
-                    var index = contain.state.entity.findIndex(x=>x.image.imageName[0]==item);
-                    // console.log("update element: "+contain.state.entity[index].image.base64str);
-                    contain.state.entity[index].image.base64str = obj.find(x=>x.image.imageName[0]==item).image.base64str;
+
+                if (!data) {
+                    
+                } else {
+                    data = data.slice(0, -1);
+                    data = '[' + data + ']';
+                    var obj = JSON.parse(data);
+                    var exist1 = []
+                    exist1 = contain.listAll().split(',');
+
+                    var comming = contain.listAllComming(obj).split(',');
+                    // console.log('exist1: '+exist1);
+                    console.log('comming: ' + comming);
+                    var common = [];
+                    common = exist1.filter(value => -1 !== comming.indexOf(value));
+                    // console.log('phuc common: ' + common);
+                    common.forEach(function (item) {
+                        var index = contain.state.entity.findIndex(x => x.image.imageName[0] == item);
+                        // console.log("update element: "+contain.state.entity[index].image.base64str);
+                        contain.state.entity[index].image.base64str = obj.find(x => x.image.imageName[0] == item).image.base64str;
+                        var removeIndex = obj.findIndex(x => x.image.imageName[0] == item);
+                        obj.splice(index, 1);
+                    });
                     contain.setState(contain.state.entity);
-                    var removeIndex =  obj.findIndex(x=>x.image.imageName[0]==item);
-                    obj.splice(index,1);
-                });
-                // contain.setState(contain.state.entity);
-                
-                obj.map((e, i) => {
-                    contain.setState(previousState => ({
-                        entity: [...previousState.entity, e]
-                    }));
-                })
+
+                    obj.map((e, i) => {
+                        contain.setState(previousState => ({
+                            entity: [...previousState.entity, e]
+                        }));
+                    })
+                }
             });
         } catch (err) {
             // console.log(err)

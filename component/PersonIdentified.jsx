@@ -54,6 +54,7 @@ class PersonIdentified extends React.Component {
             console.log('end delete');
             var deleteState = this.props.deleteUser;
             deleteState(UserID);
+            console.log(UserID);
         }
     }
     render() {
