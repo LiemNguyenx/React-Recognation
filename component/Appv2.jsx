@@ -32,13 +32,14 @@ class Appv2 extends React.Component {
     };
     deleteUser(id) {
         var index = contain.state.entity.findIndex(function (obj) {
-            return obj.image.imageName[0] === id;
+            return obj.image.imageName[0] == id;
         });
         console.log('ID delete: ' + id);
-        this.setState({
-            entity: contain.state.entity.splice(index, 1),
-            status: 'Delete user successful with ID: ' + id
-        })
+        contain.state.entity.splice(index, 1);
+        contain.state.status= 'Delete user successful with ID: ' + id;
+        this.setState(contain.state);
+        console.log('Delete liem: '+this.state.entity);
+        console.log("im here:");
     };
     updateUser(user, userid) {
         var index = contain.state.entity.findIndex(function (obj) {
@@ -76,7 +77,6 @@ class Appv2 extends React.Component {
             $.get(myAddress.ADDRESS_LOCAL + '/listAll/' + exist, function (data, status) {
 
                 if (!data) {
-                    
                 } else {
                     data = data.slice(0, -1);
                     data = '[' + data + ']';
@@ -96,8 +96,9 @@ class Appv2 extends React.Component {
                         contain.state.entity[index].image.base64str = obj.find(x => x.image.imageName[0] == item).image.base64str;
                         var removeIndex = obj.findIndex(x => x.image.imageName[0] == item);
                         obj.splice(index, 1);
+                        contain.setState(contain.state.entity);
                     });
-                    contain.setState(contain.state.entity);
+                   
 
                     obj.map((e, i) => {
                         contain.setState(previousState => ({
@@ -143,9 +144,7 @@ class Appv2 extends React.Component {
                     </nav>
                     <div id="page-wrapper">
                         <div className="row" style={{ marginTop: '10px' }} >
-
-                            <Statistical />
-
+                            <Statistical updateUser={this.updateUser.bind(this)} deleteUser={this.deleteUser.bind(this)} />
                         </div>
                     </div>
 
